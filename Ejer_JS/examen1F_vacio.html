@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>¡Bienvenido al juego de los Goya 2023!</h2>
+  <input disabled="disabled" id="pelicula" size="50">
+  <select id="premios">
+    <option value="0">Mejor película</option>
+    <option value="1">Mejor película de animación</option>
+    <option value="2">Mejor película documental</option>
+    <option value="3">Cortometraje documental</option>
+    <option value="4">Cortometraje de animación</option>
+    <option value="5">Cortometraje de ficción</option>
+  </select>
+  <button id="boton">Comprobar</button>
+  <h3 id="mensaje"></h3>
+</body>
+<script>
+  class MiObjeto {
+    constructor(pelicula, premio) {
+      this._pelicula = pelicula;
+      this.premio = premio;
+    }
+
+    // Getter para propiedad1
+    get pelicula() {
+      return this._pelicula;
+    }
+
+    // Setter para propiedad1
+    set pelicula(value) {
+      this._pelicula = value;
+    }
+
+    // Getter para propiedad2
+    get premio() {
+      return this._premio;
+    }
+
+    // Setter para propiedad2
+    set premio(value) {
+      this._premio = value;
+    }
+
+    // Método toString
+    toString() {
+      return `La pelicula ${this._pelicula}, ha ganado el premio: ${this._premio}`;
+    }
+  }
+
+
+  let contador = 0;
+  window.onload = function () {
+
+    let boton = document.getElementById("boton");
+
+    
+
+    const peliculas = [
+      "As bestas",
+      "Unicorn war",
+      "Labordeta, un hombre sin más",
+      "Maldita",
+      "The loop",
+    ];
+
+    cargarTexto();
+    
+
+    boton.addEventListener("click", comprobar);
+
+  }
+
+  //Aquí va la clase PeliculaPremio
+
+  //Arrays de películas y premios
+  //Cada película y premio se corresponden uno a uno: 
+  //As bestas con Mejor película, Unicorn war con Mejor película de animación, etc.
+  const peliculas = [
+    "As bestas",
+    "Unicorn war",
+    "Labordeta, un hombre sin más",
+    "Maldita",
+    "The loop",
+  ];
+
+  /*const premios = [
+    "Mejor película",
+    "Mejor película de animación",
+    "Mejor película documental",
+    "Cortometraje documental",
+    "Cortometraje de animación",
+    "Cortometraje de ficción",
+  ];*/
+
+  const arrayPeliculas = [];
+
+  //Script de la aplicación
+
+  function cargarTexto() {
+
+    let randomIndex = Math.floor(Math.random() * peliculas.length);
+    let randomPelicula = peliculas[randomIndex];
+    let campotexto = document.getElementById("pelicula");
+    let selector = document.getElementById("premios");
+    campotexto.value = randomPelicula;
+
+    // console.log(randomPelicula);
+  }
+
+  function comprobar() {
+
+    
+    let campotexto = document.getElementById("pelicula");
+    let selector = document.getElementById("premios");
+    let mensaje = document.getElementById("mensaje");
+
+    // Obtén el índice del option seleccionado
+    let selectedIndex = selector.selectedIndex;
+
+    // Obtén el option seleccionado
+    let selectedOption = selector.options[selectedIndex];
+
+    // Obtén el texto del option seleccionado
+    let selectedText = selectedOption.text;
+
+    console.log(contador);
+    for (let i = 0; i < peliculas.length; i++) {
+
+      if (campotexto.value == peliculas[i] && selector.value == i) {
+
+        let victorioso = new MiObjeto(campotexto.value, selectedText);
+        arrayPeliculas.push(victorioso);
+        mensaje.innerHTML = victorioso.toString();
+        boton.disabled = true;
+        break;
+
+
+
+      } else {
+
+        contador += 1;
+        break;
+
+      }
+
+    }
+
+    muerte();
+
+
+  }
+
+
+  function muerte(){
+
+    let mensaje = document.getElementById("mensaje");
+
+    if(contador == 3){
+
+      mensaje.innerHTML = "Game Over";
+      boton.disabled = true;
+
+
+
+
+    }
+
+
+  }
+</script>
+</body>
+
+</html>
